@@ -35,6 +35,16 @@ services:
       - /express-app/node_modules
     depends_on:
       - db
+  client:
+    build: ./todo-client
+    container_name: client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./todo-client:/vue-app
+      - /vue-app/node_modules
+    depends_on:
+      - server
 
 volumes:
   postgres-data:
