@@ -1,0 +1,44 @@
+services:
+  db:
+    container_name: postgresql
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    volumes:
+      - pg-data:/var/lib/pgadmin  
+  server:
+    build: ./server
+    container_name: server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/express-app
+      - /express-app/node_modules
+    depends_on:
+      - db
+
+volumes:
+  postgres-data:
+  pg-data:
+
+  
+  
