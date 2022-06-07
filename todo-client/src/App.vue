@@ -1,87 +1,40 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
+<script>
+import { useAuth0 } from '@auth0/auth0-vue'
+
+export default {
+  setup() {
+
+    const { isAuthenticated, logout } = useAuth0()
+
+    return {
+      isAuthenticated,
+      logout: () => {
+        logout({ returnTo: window.location.origin });
+      },
+    }
+
+  }
+}
+
+
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <div class="h-screen w-screen subpixel-antialiased">
+    <header class="bg-blue-600 flex h-24 justify-center items-center drop-shadow-2xl fixed inset-x-0 top-0 z-10">
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+      <router-link to="/" class="px-6 py-2 text-white font-sans font-semibold text-base">
+        Home
+      </router-link>
+      <router-link to="/todos" class="px-6 py-2 text-white font-sans font-semibold text-base">Todos
+      </router-link>
 
-  <main>
-    <TheWelcome />
-  </main>
+      <button v-if="isAuthenticated" @click="logout"
+        class="absolute right-24 px-6 py-2 ring-2 text-white ring-white hover:bg-neutral-50 hover:drop-shadow-xl rounded-full hover:text-blue-600 font-sans font-semibold text-md tracking-">Log
+        Out</button>
+
+    </header>
+    <router-view class="absolute inset-x-0 bottom-0 top-24" />
+
+  </div>
 </template>
-
-<style>
-@import "./assets/base.css";
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-}
-</style>
