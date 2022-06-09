@@ -41,7 +41,7 @@ export default {
 <template>
 
     <div class="flex justify-center items-start bg-gray-50">
-        <div class="w-1/5  mt-24 ring-1 ring-gray-900/5 rounded-lg p-10 bg-white shadow-xl">
+        <div class="mx-auto mt-24 ring-1 ring-gray-900/5 rounded-lg p-10 bg-white shadow-xl">
             <ul>
                 <li v-if="user.todos.length == 0">No todos to do</li>
                 <li v-for="todo in user.todos">

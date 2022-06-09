@@ -23,4 +23,5 @@ COPY . ./
 EXPOSE 8000
 
 # command run by container
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+CMD ["npm", "run", "deploy"]

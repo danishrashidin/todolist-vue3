@@ -21,7 +21,7 @@ export default {
             user.$patch(state => {
                 state.todos[idx] = { ...user.todos[idx], title: title.value, status: status.value }
             })
-            editTodo(uuid.value, title.value, status.value).then((res) => {
+            editTodo(props.uuid, title.value, status.value).then((res) => {
                 console.log("Edit success")
             }).catch((err) => {
                 console.log(err)
@@ -56,8 +56,8 @@ export default {
         <input
             class="flex-grow mx-4 font-sans font-medium text-md text-slate-700 focus:outline-none focus:border-slate-400 focus:border-b-2 focus:ring-slate-400 focus:ring-0"
             v-model="title" />
-        <button v-if="showDel" @click="deleteTodo">
-            <Close class="fill-skate-700" />
+        <button class="w-2" @click="deleteTodo">
+            <Close v-show="showDel" class="fill-skate-700" />
         </button>
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = "http://localhost:8000"
+const baseURL = "https://todolist-vue3-express.herokuapp.com"
 
 export const axiosInstance = axios.create({
     baseURL,
